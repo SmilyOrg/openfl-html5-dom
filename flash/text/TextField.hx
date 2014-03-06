@@ -888,6 +888,10 @@ class TextField extends InteractiveObject {
 	
 	public function get_text ():String {
 		
+		if (type == TextFieldType.INPUT) {
+			return __graphics.__surface.innerText;
+		}
+		
 		if (mHTMLMode) {
 			
 			ConvertHTMLToText (false);
@@ -904,6 +908,12 @@ class TextField extends InteractiveObject {
 		mText = Std.string (inText);
 		//mHTMLText = inText;
 		mHTMLMode = false;
+		
+		if (type == TextFieldType.INPUT) {
+			__graphics.__surface.innerText = mText;
+			return mText;
+		}
+		
 		RebuildText ();
 		__invalidateBounds ();
 		
